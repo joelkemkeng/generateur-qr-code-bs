@@ -120,8 +120,14 @@ Interface Swagger complète pour test et documentation
 git clone <repository>
 cd api-generateur-qr-code-bs
 
+
+# Lancement avec Docker en arriere plan
+docker-compose up --build -d
+
+
 # Lancement avec Docker
 docker-compose up --build
+
 
 # Vérification du statut
 curl http://localhost:8080/health

@@ -102,7 +102,7 @@ public class PdfGenerationService {
             document.setMargins(50, 50, 50, 50);
 
             // Titre principal
-            Paragraph title = new Paragraph("QR Code Generator - Boaz Housing")
+            Paragraph title = new Paragraph("QR Code Generator - Boaz Study")
                     .setFontSize(24)
                     .setBold()
                     .setTextAlignment(TextAlignment.CENTER)
