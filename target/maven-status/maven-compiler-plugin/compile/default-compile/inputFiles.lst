@@ -1,0 +1,8 @@
+/app/src/main/java/com/boazhousing/qrcodegen/model/ApiResponse.java
+/app/src/main/java/com/boazhousing/qrcodegen/controller/QrCodeController.java
+/app/src/main/java/com/boazhousing/qrcodegen/QrCodeGeneratorApplication.java
+/app/src/main/java/com/boazhousing/qrcodegen/config/WebConfig.java
+/app/src/main/java/com/boazhousing/qrcodegen/controller/HealthController.java
+/app/src/main/java/com/boazhousing/qrcodegen/service/PdfGenerationService.java
+/app/src/main/java/com/boazhousing/qrcodegen/model/QrGenerationResult.java
+/app/src/main/java/com/boazhousing/qrcodegen/service/BoazQrCodeService.java

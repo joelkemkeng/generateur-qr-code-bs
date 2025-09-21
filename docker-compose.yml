@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  qr-code-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: boaz-qr-generator
+    ports:
+      - "8080:8080"
+    environment:
+      # Configuration application
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+
+      # Configuration QR Code
+      - APP_QR_OUTPUT_DIRECTORY=/app/document-qr-code-generer
+      - APP_QR_BASE_URL=https://housing.boaz-study.tech
+      - APP_QR_VERIFICATION_PATH=/verif_doc
+
+      # Couleurs Boaz Housing (exactes du Python)
+      - APP_COLORS_PRIMARY_BLUE=#0140ff
+      - APP_COLORS_ORANGE_DARK=#f88206
+      - APP_COLORS_ORANGE_MEDIUM=#fa9000
+      - APP_COLORS_ORANGE_LIGHT=#ffa94d
+      - APP_COLORS_BACKGROUND=#ffffff
+
+      # Configuration JVM
+      - JAVA_OPTS=-Xmx1g -Xms512m -XX:+UseG1GC -XX:+PrintGCDetails
+
+      # Configuration logging
+      - LOGGING_LEVEL_COM_BOAZHOUSING_QRCODEGEN=INFO
+      - LOGGING_LEVEL_ROOT=WARN
+
+    volumes:
+      # Persistance des PDFs générés
+      - qr_documents:/app/document-qr-code-generer:rw
+
+      # Logs optionnels
+      - ./logs:/app/logs:rw
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    networks:
+      - qr-network
+
+    # Limites de ressources
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+# Volumes nommés pour persistance
+volumes:
+  qr_documents:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./document-qr-code-generer
+
+# Réseau dédié
+networks:
+  qr-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

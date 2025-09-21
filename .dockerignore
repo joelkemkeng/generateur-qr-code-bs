@@ -1,0 +1,40 @@
+# Fichiers et répertoires à ignorer lors du build Docker
+
+# Répertoires Maven
+target/
+*.log
+
+# Répertoires de build
+.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documents générés
+document-qr-code-generer/
+logs/
+
+# Tests
+src/test/
+
+# Documentation
+README.md
+*.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

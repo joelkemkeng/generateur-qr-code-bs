@@ -1,0 +1,51 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: qr-code-generator-api
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# Configuration des fichiers générés
+app:
+  qr:
+    output-directory: document-qr-code-generer
+    base-url: ${QR_BASE_URL:https://housing.boaz-study.tech}
+    verification-path: /verif_doc
+
+  # Configuration du service d'images QR isolé
+  images:
+    output-directory: qr-images
+    base-access-url: ${IMAGE_BASE_URL:http://localhost:8080/images}
+
+  # Couleurs Boaz Housing (exactes du Python)
+  colors:
+    primary-blue: "#0140ff"
+    orange-dark: "#f88206"
+    orange-medium: "#fa9000"
+    orange-light: "#ffa94d"
+    background: "#ffffff"
+
+# Endpoints management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+# Logging
+logging:
+  level:
+    com.boazhousing.qrcodegen: INFO
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
